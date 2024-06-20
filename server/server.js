@@ -4,11 +4,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events');
+const { MONGODB_URI } = require('./config');
 
 const app = express();
 const PORT = 5000;
 
-mongoose.connect('mongodb://localhost:27017/eventApp', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('MongoDB connected');
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
 
 app.use(cors());
 app.use(bodyParser.json());
