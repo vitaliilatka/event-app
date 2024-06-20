@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на мероприятие</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Запись на мероприятие</h1>
+        <div id="auth">
+            <form id="registerForm">
+                <h2>Регистрация</h2>
+                <label for="registerUsername">Имя пользователя:</label>
+                <input type="text" id="registerUsername" required>
+                <label for="registerPassword">Пароль:</label>
+                <input type="password" id="registerPassword" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            <form id="loginForm">
+                <h2>Вход</h2>
+                <label for="loginUsername">Имя пользователя:</label>
+                <input type="text" id="loginUsername" required>
+                <label for="loginPassword">Пароль:</label>
+                <input type="password" id="loginPassword" required>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+        <form id="eventForm" style="display:none;">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="event">Мероприятие:</label>
+            <select id="event" name="event" required>
+                <option value="football">Футбол</option>
+                <option value="basketball">Баскетбол</option>
+                <option value="volleyball">Волейбол</option>
+            </select>
+            <button type="submit">Записаться</button>
+        </form>
+        <h2>Записанные участники</h2>
+        <ul id="participantList"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
