@@ -1,25 +1,38 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const eventRoutes = require('./routes/events');
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-
-// MongoDB connection
-mongoose.connect('mongodb+srv://latkavitalii:0807dtnfk@cluster0.jzjhzae.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+app.use(bodyParser.json());
 
 // Routes
-const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => {
+        console.log('MongoDB connected');
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error('MongoDB connection error:', err);
+    });
 
 
 
